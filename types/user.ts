@@ -1,5 +1,7 @@
 export interface User{
+    id: string,
     email: string,
     name: string,
-    virtualMachinesIDs: string[]
+    virtualMachinesNumber: number,
+    virtualMachines: number[]
 }

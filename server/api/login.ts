@@ -3,6 +3,7 @@ import { hashPassword } from "~/typscript/utils";
 
 import { FormBody, redis } from "./common";
 
+
 export default defineEventHandler(async (event) => {
   const body: FormBody = await readBody(event);
 
@@ -16,14 +17,17 @@ export default defineEventHandler(async (event) => {
   }
 
   const value = await redis.hgetall(email);
+  const machines = await redis.lrange(value.name+":virtualMachines", 0, -1);
 
   if(value.hashedPassword === hashPassword(password))
   {
     setResponseStatus(event, 202, "Logged in successfully");
     return{
+      id: value.id,
       email: email,
       name: value.name,
-      virtualMachinesIDs: value.virtualMachinesIDs
+      virtualMachineNumber: value.virtualMachineNumber,
+      machines: machines
     };
   }
 

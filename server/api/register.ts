@@ -1,7 +1,23 @@
 import { defineEventHandler, readBody } from "h3";
-import { hashPassword } from "~/typscript/utils";
+import { hashPassword } from "@/typscript/utils";
 
 import { FormBody, redis } from "./common";
+
+function randomID(
+  length: number,
+  characters: string = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+): string {
+  let result = "";
+
+  const charLeng = characters.length;
+
+  for (let i = 0; i < length; ++i) {
+      const randomIndex = Math.floor(Math.random() * charLeng);
+      result = result + characters.charAt(randomIndex);
+  }
+
+  return result;
+}
 
 export default defineEventHandler(async (event) => {
   const body: FormBody = await readBody(event);
@@ -23,9 +39,10 @@ export default defineEventHandler(async (event) => {
   }
 
   try {
-    const virtualMachinesIDs = "";
     const hashedPassword = hashPassword(password);
-    await redis.hmset(key, { name, hashedPassword, virtualMachinesIDs });
+    const virtualMachineNumber = 0
+    const id = name + randomID(4);
+    await redis.hmset(key, { name, hashedPassword, virtualMachineNumber, id });
     setResponseStatus(event, 201, "Registration complete!");
     return;
   } catch (error) {

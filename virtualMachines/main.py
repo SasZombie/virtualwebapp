@@ -1,6 +1,6 @@
-import os
+import sys
 import subprocess
-import shutil
+
 
 def start_virtualbox_vm(vm_name:str)->None:
     try:
@@ -36,8 +36,18 @@ def clone_virtualbox_vm(original_vm_name:str, new_vm_name:str, base_folder:str)-
 
 
 def main()->None:
-    clone_virtualbox_vm("DebianOriginal", "DebianSandu", "/home/sas/Coding/virtualwebapp/virtualMachines/Debian/")
-    start_virtualbox_vm("DebianSandu")
+    
+    acceptableVms = ('DEBIAN', 'UBUNTU')
+    
+    if len(sys.argv) < 2:
+        raise ValueError("Not enough args")
+    else:
+        if sys.argv[1] in acceptableVms:
+            print("Proceding")
+        else:
+            raise ValueError("We do not accept this vm")
+    # clone_virtualbox_vm("DebianOriginal", "DebianSandu", "/home/sas/Coding/virtualwebapp/virtualMachines/Debian/")
+    # start_virtualbox_vm("DebianSandu")
 
 
 

@@ -29,9 +29,11 @@ export const useLogin = () => {
       if (response.status === 202) {
         const userData = await response.json();
         user.value = {
+          id: userData.id,
           email: userData.email,
           name: userData.name,
-          virtualMachinesIDs: userData.virtualMachinesIDs,
+          virtualMachinesNumber: userData.virtualMachineNumber || 0,
+          virtualMachines: userData.machines || []
         };
 
         userCookie.value = user.value;
@@ -59,8 +61,9 @@ export const logout = () => {
   const userCookie = useCookie<User | null>("user");
   const user = useState<User | null>("user", () => userCookie.value || null);
   const router = useRouter();
+
+  
   user.value = null;
   userCookie.value = null;
-
   router.push("/");
 };
