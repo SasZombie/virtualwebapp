@@ -41,7 +41,7 @@ export default defineEventHandler(async (event) => {
   try {
     const hashedPassword = hashPassword(password);
     const virtualMachineNumber = 0
-    const id = name + randomID(4);
+    const id = name + randomID(4) + ":virtualMachines";
     await redis.hmset(key, { name, hashedPassword, virtualMachineNumber, id });
     setResponseStatus(event, 201, "Registration complete!");
     return;

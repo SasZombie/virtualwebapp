@@ -25,8 +25,26 @@ export const useVm = () => {
 
   };
 
-  const deleteVm = (index: number) => {
-    console.log(index);
+  const deleteVm = async (id: number) => {
+    try {
+      const response = await fetch("/api/deleteVm", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          id: id,
+        }),
+      });
+      if (!response.ok) {
+        error.value = "Could not delete virtual Machine";
+      } else {
+        error.value = "";
+      }
+    } catch (e) {
+      console.log("Internal Server Error");
+    }
+
   };
 
   return {

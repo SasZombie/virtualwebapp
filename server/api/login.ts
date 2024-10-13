@@ -17,7 +17,7 @@ export default defineEventHandler(async (event) => {
   }
 
   const value = await redis.hgetall(email);
-  const machines = await redis.lrange(value.name+":virtualMachines", 0, -1);
+  const machines = await redis.lrange(value.id, 0, -1);
 
   if(value.hashedPassword === hashPassword(password))
   {
@@ -27,7 +27,8 @@ export default defineEventHandler(async (event) => {
       email: email,
       name: value.name,
       virtualMachineNumber: value.virtualMachineNumber,
-      machines: machines
+      machines: machines,
+      selectedVm: null
     };
   }
 

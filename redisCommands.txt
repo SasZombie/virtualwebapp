@@ -1,0 +1,167 @@
+General Commands
+    PING – Test if a connection is alive.
+    
+    AUTH – Authenticate to the server.
+    
+    SELECT – Change the selected database.
+    
+    INFO – Get information about the server.
+    
+    CONFIG GET <param> – Read configuration parameters.
+    
+    CONFIG SET <param> <value> – Set configuration parameters.
+    
+    DBSIZE – Get the number of keys in the selected database.
+    
+    FLUSHDB – Remove all keys from the selected database.
+    
+    FLUSHALL – Remove all keys from all databases.
+    
+    SAVE – Perform a synchronous save of the dataset to disk.
+    
+    BGSAVE – Save the dataset to disk in the background.
+    
+    SHUTDOWN – Stop all clients, save the DB, and shut down the server.
+
+
+Key Commands
+
+    SET <key> <value> – Set a key to hold the specified value.
+
+    GET <key> – Get the value of a key.
+
+    DEL <key> [key ...] – Delete one or more keys.
+
+    EXISTS <key> – Determine if a key exists.
+
+    EXPIRE <key> <seconds> – Set a key's time to live (TTL) in seconds.
+
+    TTL <key> – Get the TTL of a key.
+
+    RENAME <key> <newkey> – Rename a key.
+
+    TYPE <key> – Get the data type of a key.
+
+    KEYS <pattern> – Find all keys matching the given pattern.
+
+    SCAN <cursor> [MATCH <pattern>] [COUNT <count>] – Incrementally iterate the keys space.
+
+
+String Commands
+    
+    APPEND <key> <value> – Append a value to a key.
+    
+    GETRANGE <key> <start> <end> – Get a substring of the string stored at a key.
+    
+    INCR <key> – Increment the integer value of a key by one.
+    
+    DECR <key> – Decrement the integer value of a key by one.
+    
+    MGET <key1> <key2> ... – Get the values of multiple keys.
+    
+    MSET <key1> <value1> <key2> <value2> ... – Set multiple keys to multiple values.
+    
+    Hash Commands
+    
+    HSET <key> <field> <value> – Set the value of a hash field.
+    
+    HGET <key> <field> – Get the value of a hash field.
+    
+    HDEL <key> <field1> [field2] – Delete one or more hash fields.
+    
+    HGETALL <key> – Get all fields and values of a hash.
+    
+    HEXISTS <key> <field> – Determine if a hash field exists.
+    
+    HINCRBY <key> <field> <increment> – Increment a hash field by the given number.
+
+
+List Commands
+
+    LPUSH <key> <value1> [value2] – Prepend one or multiple values to a list.
+
+    RPUSH <key> <value1> [value2] – Append one or multiple values to a list.
+
+    LPOP <key> – Remove and get the first element in a list.
+
+    RPOP <key> – Remove and get the last element in a list.
+
+    LRANGE <key> <start> <stop> – Get a range of elements from a list.
+
+    LLEN <key> – Get the length of a list.
+
+    Set Commands
+
+    SADD <key> <member1> [member2] – Add one or more members to a set.
+
+    SMEMBERS <key> – Get all the members in a set.
+
+    SREM <key> <member1> [member2] – Remove one or more members from a set.
+
+    SISMEMBER <key> <member> – Determine if a given value is a member of a set.
+
+    SCARD <key> – Get the number of members in a set.
+
+    SRANDMEMBER <key> [count] – Get one or multiple random members from a set.
+
+    Sorted Set Commands
+
+    ZADD <key> <score1> <member1> [score2 member2] – Add one or more members to a sorted set.
+
+    ZRANGE <key> <start> <stop> [WITHSCORES] – Get a range of members in a sorted set by index.
+
+    ZREM <key> <member1> [member2] – Remove one or more members from a sorted set.
+
+    ZSCORE <key> <member> – Get the score associated with the given member.
+
+    ZCARD <key> – Get the number of members in a sorted set.
+
+    Pub/Sub Commands
+
+    PUBLISH <channel> <message> – Post a message to a channel.
+
+    SUBSCRIBE <channel1> [channel2] – Subscribe to one or more channels.
+
+    PSUBSCRIBE <pattern> – Subscribe to channels that match a pattern.
+
+    UNSUBSCRIBE [channel1] – Unsubscribe from one or more channels.
+
+    PUNSUBSCRIBE [pattern] – Unsubscribe from channels matching a pattern.
+
+    Transaction Commands
+
+    MULTI – Start a transaction block.
+
+    EXEC – Execute all commands issued after MULTI.
+
+    DISCARD – Discard all commands issued after MULTI.
+
+    WATCH <key1> [key2] – Watch one or more keys for changes.
+
+    UNWATCH – Forget about all watched keys.
+
+    HyperLogLog Commands
+
+    PFADD <key> <element1> [element2] – Add elements to the HyperLogLog data structure.
+
+    PFCOUNT <key> – Return the approximated cardinality of the set.
+
+    PFMERGE <destkey> <sourcekey1> [sourcekey2] – Merge multiple HyperLogLogs into one.
+
+    Stream Commands
+
+    XADD <key> <ID or *> <field> <value> – Add an entry to a stream.
+
+    XRANGE <key> <start> <end> – Get a range of entries from a stream.
+
+    XREAD COUNT <count> STREAMS <key> – Read data from one or more streams.
+
+    XDEL <key> <ID> – Remove entries from a stream.
+
+    Other Useful Commands
+
+    SORT <key> [BY <pattern>] – Sort the elements in a list, set, or sorted set.
+
+    DUMP <key> – Return a serialized version of the value stored at a key.
+
+    RESTORE <key> <ttl> <serialized-value> – Create a key from a serialized value.

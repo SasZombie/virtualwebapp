@@ -1,10 +1,9 @@
 import { spawn } from "child_process";
-import { Vms } from "@/types/vms";
 import { redis } from "./common";
 import { User } from "@/types/user";
 
 export default defineEventHandler(async (event) => {
-  const body: Vms = await readBody(event);
+  const body = await readBody(event);
 
   const userCookie = getCookie(event, "user");
 
@@ -14,17 +13,12 @@ export default defineEventHandler(async (event) => {
 
   let user: User = JSON.parse(userCookie);
 
-  const { type } = body;
-
-  
-
   const runPython = () => {
     return new Promise<void>((resolve, reject) => {
       const pythonProcess = spawn("python3", [
-        "virtualMachines/create.py",
-        type,
+        "virtualMachines/delete.py",
+        body.id,
         user.id,
-        user.virtualMachinesNumber.toString(),
       ]);
 
       pythonProcess.stdout.on("data", (data) => {
@@ -35,24 +29,23 @@ export default defineEventHandler(async (event) => {
         console.error(`Error in PYTHON: ${data.toString()}`);
       });
 
-      pythonProcess.on("close", async (code)  => {
+      pythonProcess.on("close", async (code) => {
         if (code === 0) {
           let key = user.id;
-          let idVm = 1;
 
-          user.virtualMachinesNumber = Number(user.virtualMachinesNumber) + 1;
-          if(user.virtualMachines.length > 0)
-            idVm = Number(Number(Math.max(...user.virtualMachines)) + 1)
+          user.virtualMachinesNumber = Number(user.virtualMachinesNumber) - 1;
+
           redis.hset(
             user.email,
             "virtualMachineNumber",
             user.virtualMachinesNumber
           );
-          redis.lpush(key, idVm, (err) => {
+
+          redis.lrem(key, 0, body.id, (err) => {
             if (err) {
               reject(err);
             } else {
-              user.virtualMachines.push(idVm);
+              user.virtualMachines = user.virtualMachines.filter( elem => elem != body.id);
               setCookie(event, "user", JSON.stringify(user));
               resolve();
             }
@@ -63,7 +56,7 @@ export default defineEventHandler(async (event) => {
   };
 
   try {
-    await runPython();
+      await runPython();
     setResponseStatus(event, 201, "Ok");
     return "Ok";
   } catch (e) {

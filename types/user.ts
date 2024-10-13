@@ -4,4 +4,5 @@ export interface User{
     name: string,
     virtualMachinesNumber: number,
     virtualMachines: number[]
+    selectedVm: string
 }

@@ -33,7 +33,8 @@ export const useLogin = () => {
           email: userData.email,
           name: userData.name,
           virtualMachinesNumber: userData.virtualMachineNumber || 0,
-          virtualMachines: userData.machines || []
+          virtualMachines: userData.machines || ["SAS"],
+          selectedVm: userData.selectedVm
         };
 
         userCookie.value = user.value;
