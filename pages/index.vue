@@ -6,6 +6,7 @@
     <br>
     <a href="/register">Register</a>
 
+
   </div>
 
 </template>
