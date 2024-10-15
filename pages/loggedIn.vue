@@ -15,7 +15,7 @@
         <ul>
             <li v-for="(vm, index) in user?.virtualMachines" :key="index">
                 {{ vm }}
-                <button @click="redirect(vm.toString())">Access it</button>
+                <button @click="redirect(vm)">Access it</button>
                 <button @click="deleteVm(vm)"> Delete </button>
             </li>
         </ul>
@@ -29,7 +29,6 @@
 import type { User } from '@/types/user';
 import { VmType } from '@/types/vms';
 
-
 definePageMeta({
     middleware: 'auth'
 });
@@ -38,10 +37,11 @@ const userCookie = useCookie<User | null>("user");
 const user = useState<User | null>("user", () => userCookie.value || null);
 const router = useRouter();
 
-const redirect = (id: string) => {
+const redirect = (id: number) => {
     if (user.value) {
-        user.value.selectedVm = id;
+        user.value.selectedVm = id.toString();
     }
+    runVm(id);
     router.push("/virtualMachine")
 }
 
@@ -49,6 +49,6 @@ watch(userCookie, (newValue) => {
     user.value = newValue;
 })
 
-const { error, createNewVm, deleteVm } = useVm();
+const { error, createNewVm, deleteVm, runVm } = useVm();
 
 </script>

@@ -25,4 +25,4 @@ logs
 
 #Virtual Machines should not be upploaded :)
 virtualMachines/*
-!virtualMachines/main.py
+!virtualMachines/*.py

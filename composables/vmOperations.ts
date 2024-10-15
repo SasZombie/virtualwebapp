@@ -4,6 +4,7 @@ export const useVm = () => {
   const error = ref("");
 
   const createNewVm = async (type: VmType) => {
+    error.value = "Creating"
     try {
       const response = await fetch("/api/createVm", {
         method: "POST",
@@ -47,7 +48,29 @@ export const useVm = () => {
 
   };
 
+
+  const runVm = async (id: number) => {
+    try {
+      const response = await fetch("/api/runVm", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          id: id,
+        }),
+      });
+      if (!response.ok) {
+        error.value = "Could not delete virtual Machine";
+      } else {
+        error.value = "";
+      }
+    } catch (e) {
+      console.log("Internal Server Error");
+    }
+  }
+
   return {
-    error, createNewVm, deleteVm
+    error, createNewVm, deleteVm, runVm
   };
 };

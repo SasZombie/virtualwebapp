@@ -1,51 +1,17 @@
 <template>
-    <div @mousemove="sendMousePosition" @click="sendMouseClick" @keydown="sendKey" tabindex="0">
-        Hello
-        <video ref="streamVideo" autoplay></video>
-
-    </div>
+  <div style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: 9999;">
+    <iframe
+      style="width: 100%; height: 100%; border: none;"
+      src="http://localhost:6080/vnc.html"
+      allow="fullscreen"   
+      allowfullscreen      
+      sandbox="allow-same-origin allow-scripts allow-pointer-lock allow-forms allow-popups allow-modals allow-top-navigation-by-user-activation"
+    ></iframe>
+  </div>
 </template>
 
 <script lang="ts" setup>
 import type { User } from '@/types/user';
-import Peer from 'simple-peer';
-import io from 'socket.io-client'
-
-
-
-const streamVideo = ref<HTMLVideoElement | null>(null);
-const socket = io('http://localhost:3000');
-
-
-const sendMousePosition = (event: MouseEvent) => {
-    socket.emit('mouseMove', { x: event.clientX, y: event.clientY });
-};
-
-const sendMouseClick = (event: MouseEvent) => {
-    socket.emit('mouseClick', { x: event.clientX, y: event.clientY });
-};
-
-const sendKey = (event: KeyboardEvent) => {
-    socket.emit('keyPress', { key: event.key });
-};
-
-onMounted(() => {
-    const peer = new Peer({ initiator: true, trickle: false });
-    socket.on('signal', data => {
-        peer.signal(data);
-    })
-
-    peer.on('signal', data => {
-        socket.emit('signal', data);
-    });
-
-    peer.on('stream', stream => {
-        if (streamVideo.value) {
-            streamVideo.value.srcObject = stream;
-        }
-
-    })
-})
 
 
 const userCookie = useCookie<User | null>("user");
@@ -54,6 +20,6 @@ const user = useState<User | null>("user", () => userCookie.value || null);
 console.log(user.value?.selectedVm || "Nu e selectata");
 
 definePageMeta({
-    middleware: 'auth'
+  middleware: 'auth'
 });
 </script>

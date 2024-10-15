@@ -15,8 +15,11 @@ export default defineEventHandler(async (event) => {
   let user: User = JSON.parse(userCookie);
 
   const { type } = body;
-
   
+  let idVm = 1;
+  
+  if(user.virtualMachines.length > 0)
+    idVm = Number(Number(Math.max(...user.virtualMachines)) + 1)
 
   const runPython = () => {
     return new Promise<void>((resolve, reject) => {
@@ -24,7 +27,7 @@ export default defineEventHandler(async (event) => {
         "virtualMachines/create.py",
         type,
         user.id,
-        user.virtualMachinesNumber.toString(),
+        idVm.toString(),
       ]);
 
       pythonProcess.stdout.on("data", (data) => {
@@ -38,11 +41,9 @@ export default defineEventHandler(async (event) => {
       pythonProcess.on("close", async (code)  => {
         if (code === 0) {
           let key = user.id;
-          let idVm = 1;
 
           user.virtualMachinesNumber = Number(user.virtualMachinesNumber) + 1;
-          if(user.virtualMachines.length > 0)
-            idVm = Number(Number(Math.max(...user.virtualMachines)) + 1)
+          
           redis.hset(
             user.email,
             "virtualMachineNumber",
