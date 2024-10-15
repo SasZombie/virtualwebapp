@@ -21,7 +21,7 @@
         </ul>
         <button @click="logout">LogOut</button>
 
-        <p v-if="error">Erorr creating vm</p>
+        <p v-if="error"> {{ error }}</p>
     </div>
 </template>
 
