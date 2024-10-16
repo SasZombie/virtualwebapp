@@ -17,8 +17,8 @@ export default defineEventHandler(async (event) => {
     return new Promise<void>((resolve, reject) => {
       const pythonProcess = spawn("python3", [
         "virtualMachines/run.py",
-        body.id,
         user.id,
+        body.id,
       ]);
 
       pythonProcess.stdout.on("data", (data) => {

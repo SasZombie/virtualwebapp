@@ -16,7 +16,7 @@ export default defineEventHandler(async (event) => {
   const runPython = () => {
     return new Promise<void>((resolve, reject) => {
       const pythonProcess = spawn("python3", [
-        "virtualMachines/delete.py",
+        "virtualMachines/exit.py",
         user.id,
         body.id,
       ]);
@@ -30,27 +30,7 @@ export default defineEventHandler(async (event) => {
       });
 
       pythonProcess.on("close", async (code) => {
-        if (code === 0) {
-          let key = user.id;
-
-          user.virtualMachinesNumber = Number(user.virtualMachinesNumber) - 1;
-
-          redis.hset(
-            user.email,
-            "virtualMachineNumber",
-            user.virtualMachinesNumber
-          );
-
-          redis.lrem(key, 0, body.id, (err) => {
-            if (err) {
-              reject(err);
-            } else {
-              user.virtualMachines = user.virtualMachines.filter( elem => elem != body.id);
-              setCookie(event, "user", JSON.stringify(user));
-              resolve();
-            }
-          });
-        }
+        console.log("Finished Process");
       });
     });
   };

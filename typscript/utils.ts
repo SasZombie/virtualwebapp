@@ -6,6 +6,15 @@ export function validatePassword(
   return true;
 }
 
+export function randomId(): string{
+  let returned = "";
+  for(let i = 0; i < 8; ++i){
+    returned = returned + Math.floor((Math.random() * 10)).toString();
+  }
+
+  return returned;
+}
+
 function simplePrf(data: number[]): number[] {
   return data.map((b) => (b + 0x61) % 256);
 }

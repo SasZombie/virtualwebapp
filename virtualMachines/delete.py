@@ -14,7 +14,7 @@ def main()->None:
     if len(sys.argv) < 2:
         raise ValueError("Not enough args")
     else:
-        delete_virtualbox_vm(sys.argv[2] + sys.argv[1])
+        delete_virtualbox_vm(sys.argv[1] + sys.argv[2])
 
 if __name__ == "__main__":
     main()

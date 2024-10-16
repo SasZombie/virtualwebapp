@@ -1,5 +1,6 @@
 import subprocess
 import sys
+import time
 
 def get_window_id_by_name(window_name):
     try:
@@ -42,8 +43,10 @@ def main()->None:
     if len(sys.argv) < 2:
         raise ValueError("Not enough args")
     else:
-        start_virtualbox_vm(sys.argv[2] + sys.argv[1]);
-        window_name = sys.argv[2] + sys.argv[1] + " [Running] - Oracle VirtualBox"
+        start_virtualbox_vm(sys.argv[1] + sys.argv[2]);
+        window_name = sys.argv[1] + sys.argv[2] + " [Running] - Oracle VirtualBox"
+        
+        time.sleep(1)
         window_id = get_window_id_by_name(window_name)
         if window_id:
             try:

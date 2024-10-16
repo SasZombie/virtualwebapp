@@ -1,4 +1,5 @@
 import type { VmType } from "@/types/vms";
+import type { Type } from "typescript";
 
 export const useVm = () => {
   const error = ref("");
@@ -70,7 +71,29 @@ export const useVm = () => {
     }
   }
 
+
+  const exitVm = async (id: number) => {
+    try {
+      const response = await fetch("/api/exitVm", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          id: id,
+        }),
+      });
+      if (!response.ok) {
+        error.value = "Could not delete virtual Machine";
+      } else {
+        error.value = "";
+      }
+    } catch (e) {
+      console.log("Internal Server Error");
+    }
+  }
+
   return {
-    error, createNewVm, deleteVm, runVm
+    error, createNewVm, deleteVm, runVm, exitVm
   };
 };
