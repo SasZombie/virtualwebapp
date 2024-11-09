@@ -27,6 +27,7 @@ export default defineEventHandler(async (event) => {
 
       pythonProcess.stderr.on("data", (data) => {
         console.error(`Error in PYTHON: ${data.toString()}`);
+        console.error('This error message might not be an actual error!!');
       });
 
       pythonProcess.on("close", async (code) => {
