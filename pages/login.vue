@@ -29,7 +29,7 @@
             <button class="buttonCss w-[350px] h-[50px]" type="submit">
                 Log In
             </button>
-            <p>Dont have an account? Click  <a href="/register"  class="text-blue-400" >here</a>.</p>
+            <p class="text-white">Dont have an account? Click  <a href="/register"  class="text-blue-400" >here</a>.</p>
 
         </form>
     </div>

@@ -15,7 +15,7 @@
    @apply bg-teal-500 text-white font-bold rounded
 }
 .buttonCss:hover{
-    @apply bg-teal-600
+    @apply bg-gray-900
 }
 
 .center{
