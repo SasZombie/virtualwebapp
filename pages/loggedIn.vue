@@ -3,14 +3,15 @@
         Logged In :D
         <br>
 
-        Nume = {{ user?.name }}
+        Name = {{ user?.name }}
         <br>
         Email = {{ user?.email }}
         <br>
         Virtual Machines available = {{ user?.virtualMachinesNumber }}
         <br>
-        <button @click="toggleConfigTable(VmType.Debian)">Add virtual Machine Debian</button>
-        <button @click="toggleConfigTable(VmType.Ubuntu)">Add virtual Machine Ubuntu</button>
+        <button class="buttonCss" @click="toggleConfigTable(VmType.Debian)">Add virtual Machine Debian</button>
+        <br>
+        <button class="buttonCss" @click="toggleConfigTable(VmType.Ubuntu)">Add virtual Machine Ubuntu</button>
         <br>
 
         <div v-if="showConfigTable" id="configTable" style="margin-top: 10px;">
@@ -36,20 +37,20 @@
                     </tr>
                 </tbody>
             </table>
-            <button @click="createNewVm(chosenType), toggleConfigTable(VmType.Debian)">Create</button>
+            <button class="buttonCss" @click="createNewVm(chosenType), toggleConfigTable(VmType.Debian)">Create</button>
         </div>
 
         <ul>
             <li v-for="(vm, index) in user?.virtualMachines" :key="index">
                 {{ vm }}
-                <button @click="redirect(vm)">Access it</button>
-                <button @click="deleteVm(vm)"> Delete </button>
+                <button class="buttonCss" @click="redirect(vm)">Access it</button>
+                <button class="buttonCss" @click="deleteVm(vm)"> Delete </button>
             </li>
         </ul>
 
         <p v-if="error"> {{ error }}</p>
 
-        <button @click="logout">LogOut</button>
+        <button class="buttonCss" @click="logout">LogOut</button>
     </div>
 </template>
 

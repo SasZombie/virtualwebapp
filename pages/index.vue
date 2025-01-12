@@ -1,10 +1,38 @@
+<script setup lang="ts">
+
+</script>
+
 <template>
   <div>
-    Yapping main page despre noi, tre sa pun butoane pentru register si log ain 
+
+    <p class="text-right">
+      Yapping main page despre noi, tre sa pun butoane pentru register si log ain
+    </p>
+
     <br>
-    <a href="/login">Login</a>
+    <!-- Div for centering -->
     <br>
-    <a href="/register">Register</a>
-   </div>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <div class="flex flex-col items-center justify-center space-y-4">
+
+      <NuxtLink to="/login">
+        <button class = "buttonCss w-[350px] h-[100px]"> Login </button> <br>
+      </NuxtLink>
+
+      <NuxtLink to="/register">
+        <button class = "buttonCss w-[350px] h-[100px] "> Register </button> <br>
+      </NuxtLink>
+    </div>
+  </div>
 
 </template>

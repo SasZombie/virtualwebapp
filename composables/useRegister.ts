@@ -52,9 +52,15 @@ export function useRegisterForm() {
   };
 
   const checkPasswords = () => {
+    if(password.value === "" || confirmPassword.value === ""){
+      return;
+    }
     if (!validatePassword(password.value, confirmPassword.value)) {
       error.value = "Passwords do not match!";
+      return;
     }
+
+    error.value = ""
   };
 
   return {

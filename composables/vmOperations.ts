@@ -1,5 +1,4 @@
 import type { VmType } from "@/types/vms";
-import type { Type } from "typescript";
 
 export const useVm = () => {
   const error = ref("");

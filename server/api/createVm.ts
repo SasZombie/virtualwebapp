@@ -15,11 +15,11 @@ export default defineEventHandler(async (event) => {
   let user: User = JSON.parse(userCookie);
 
   const { type } = body;
-  
+
   let idVm = 1;
-  
-  if(user.virtualMachines.length > 0)
-    idVm = Number(Number(Math.max(...user.virtualMachines)) + 1)
+
+  if (user.virtualMachines.length > 0)
+    idVm = Number(Number(Math.max(...user.virtualMachines)) + 1);
 
   const runPython = () => {
     return new Promise<void>((resolve, reject) => {
@@ -38,12 +38,12 @@ export default defineEventHandler(async (event) => {
         console.error(`Error in PYTHON: ${data.toString()}`);
       });
 
-      pythonProcess.on("close", async (code)  => {
+      pythonProcess.on("close", async (code) => {
         if (code === 0) {
           let key = user.id;
 
           user.virtualMachinesNumber = Number(user.virtualMachinesNumber) + 1;
-          
+
           redis.hset(
             user.email,
             "virtualMachineNumber",
