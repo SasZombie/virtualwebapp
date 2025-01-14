@@ -55,6 +55,12 @@ export function useRegisterForm() {
     if(password.value === "" || confirmPassword.value === ""){
       return;
     }
+
+    if(password.value.length < 3){
+      error.value = "Passwords too short!";
+      return;
+    }
+
     if (!validatePassword(password.value, confirmPassword.value)) {
       error.value = "Passwords do not match!";
       return;
