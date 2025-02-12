@@ -57,7 +57,7 @@ export function useRegisterForm() {
     }
 
     if(password.value.length < 3){
-      error.value = "Passwords too short!";
+      error.value = "Password too short!";
       return;
     }
 

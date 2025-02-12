@@ -92,9 +92,13 @@ const redirect = (id: number) => {
     router.push("/virtualMachine")
 }
 
-watch(userCookie, (newValue) => {
-    user.value = newValue;
-})
+watch(
+    userCookie,
+    (newValue) => {
+        user.value = newValue;
+    },
+    { deep: true }
+);
 
 onBeforeRouteLeave((to, from) => {
 
