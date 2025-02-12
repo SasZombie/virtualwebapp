@@ -73,3 +73,7 @@ bun run preview
 ```
 
 Check out the [deployment documentation](https://nuxt.com/docs/getting-started/deployment) for more information.
+
+To make it work you need:
+Redis and https://github.com/novnc/noVNC 
+Also remider to configure the vms since I am not uploading them on github
